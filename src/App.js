@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import FactsContainer from "./components/FactsContainer/FactsContainer";
+import HomeContainer from "./components/HomeContainer/HomeContainer";
+import NavBar from "./components/NavBar/NavBar";
+import RemoveBg from "./components/RemoveBgContainer/RemoveBg/RemoveBg";
+import RemoveBgContainer from "./components/RemoveBgContainer/RemoveBgContainer";
+import { CloudinaryProvider } from "./context/cloudinaryContext";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <CloudinaryProvider>
+        <BrowserRouter>
+        <NavBar/>
+          <Routes>
+            <Route path="/" element={<HomeContainer/>}/>
+            <Route path="/remove-background" element={<RemoveBgContainer />} />
+            <Route path="/remove-background/results" element={<RemoveBg />} />
+          </Routes>
+          <FactsContainer/>
+        </BrowserRouter>
+      </CloudinaryProvider>
     </div>
   );
 }
