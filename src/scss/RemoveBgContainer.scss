@@ -12,10 +12,28 @@
     h1{
         color: rgb(0, 0, 0);
         margin-top: 40px;
+        padding-bottom: 20px;
         font-family: 'Gloock', serif;
         font-size: 30px;
         font-weight: bold;
         max-width: 700px;
+    }
+
+    .img-publi{
+        width: 80%;
+        display: flex;
+        justify-content: center;
+
+        img{
+            width: 100%;
+        }
+    }
+
+    h2{
+        margin-top: 20px;
+        font-family: 'Gloock', serif;
+        font-weight: bold;
+        font-size: 30px;
     }
 
     .section-bg{
@@ -67,7 +85,6 @@
 }
 
 .results-container{
-    min-height: 100vh;
     height: 100%;
     display: flex;
     align-items: center;

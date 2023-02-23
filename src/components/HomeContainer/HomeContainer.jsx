@@ -1,6 +1,7 @@
 import "../../scss/HomeContainer.scss";
-import firstExample from "../../img/example-1.png";
+import firstExample from "../../img/example-img.png";
 import { Link } from "react-router-dom";
+import RecommendedSection from "../RecommendedSection/RecommendedSection";
 
 const HomeContainer = () => {
   return (
@@ -13,9 +14,9 @@ const HomeContainer = () => {
           <img src={firstExample} alt="An example of background remove" />
           <div className="info">
             <h2>
-              Ready to remove yours <strong>background photos?</strong>
+              Ready to remove yours <strong>background's photos?</strong>
             </h2>
-            <p>Lets begin!</p>
+            <p>Let's begin!</p>
           </div>
         </div>
         <div className="go-bg">
@@ -23,6 +24,8 @@ const HomeContainer = () => {
         </div>
       </div>
       <div className="other-features"></div>
+
+      <RecommendedSection/>
     </main>
   );
 };

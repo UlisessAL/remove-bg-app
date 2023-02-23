@@ -20,6 +20,37 @@
         flex-direction: column;
         width: 90%;
         margin-top: 40px;
+        -webkit-animation-name: fadeInLeftBig;
+        animation-name: fadeInLeftBig;
+        -webkit-animation-duration: 1s;
+        animation-duration: 1s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+
+        @-webkit-keyframes fadeInLeftBig {
+            0% {
+                opacity: 0;
+                -webkit-transform: translate3d(-2000px, 0, 0);
+                        transform: translate3d(-2000px, 0, 0);
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: none;
+                transform: none;
+            }
+        }
+        @keyframes fadeInLeftBig {
+            0% {
+                opacity: 0;
+                -webkit-transform: translate3d(-2000px, 0, 0);
+                transform: translate3d(-2000px, 0, 0);
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: none;
+                transform: none;
+            }
+        } 
         .presentation{
             padding: 10px;
             display: flex;
@@ -46,6 +77,8 @@
                     max-width: 320px;
                 }
 
+                
+
                 p{
                     font-size: 20px;
                     font-weight: 500;
@@ -59,6 +92,38 @@
             justify-content: center;
             margin-top: 45px;
             color: white;
+
+            &:hover{
+                animation: myAnim 2s ease 0s 1 normal forwards;
+            }
+
+            @keyframes myAnim {
+                0%,
+                100% {
+                    transform: translateX(0%);
+                    transform-origin: 50% 50%;
+                }
+            
+                15% {
+                    transform: translateX(-30px) rotate(-6deg);
+                }
+            
+                30% {
+                    transform: translateX(15px) rotate(6deg);
+                }
+            
+                45% {
+                    transform: translateX(-15px) rotate(-3.6deg);
+                }
+            
+                60% {
+                    transform: translateX(9px) rotate(2.4deg);
+                }
+            
+                75% {
+                    transform: translateX(-6px) rotate(-1.2deg);
+                }
+            }
 
             .upload-btn-info{
                 color: white;

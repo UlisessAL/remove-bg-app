@@ -23,7 +23,7 @@ const RemoveBg = () => {
           {!url ? (
             <>
               <h2>Loading...</h2>
-              <img src={loadingImg} style={{ width: "400px" }} />
+              <img src={loadingImg} style={{ width: "400px" }} alt="loading image" />
             </>
           ) : (
             <>
@@ -36,7 +36,7 @@ const RemoveBg = () => {
           {!processing || !imageWithoutBg ? (
             <>
               <h2>Loading...</h2>
-              <img src={loadingImg} style={{ width: "400px" }} />
+              <img src={loadingImg} style={{ width: "400px" }} alt="loading image" />
             </>
           ) : (
             <>

@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useCloudinaryContext } from "../../context/cloudinaryContext";
 
 const NavBar = () => {
+  const { effects } = useCloudinaryContext();
+
   return (
     <div className="navbar bg-base-100 aqua" data-theme="aqua">
       <div className="flex-1">
@@ -9,10 +12,7 @@ const NavBar = () => {
         </Link>
       </div>
       <div className="flex-none">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <Link to="/remove-background">Remove background</Link>
-          </li>
+        <ul className="menu menu-horizontal px-1 z-40">
           <li tabIndex={0}>
             <a>
               More effects
@@ -27,13 +27,15 @@ const NavBar = () => {
               </svg>
             </a>
             <ul className="p-2 bg-base-100">
-              <li>
-                <a>Submenu 1</a>
-              </li>
-              <li>
-                <a>Submenu 2</a>
-              </li>
+              {effects.map((effect) => (
+                <li className="max-w-xs" key={effect.id}>
+                  <Link to={`/effect/${effect.funct}`}>{effect.effect}</Link>
+                </li>
+              ))}
             </ul>
+          </li>
+          <li>
+            <Link to="/remove-background">Remove background</Link>
           </li>
         </ul>
       </div>

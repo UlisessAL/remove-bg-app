@@ -3,6 +3,7 @@ import { useDropzone } from "react-dropzone";
 import { Link } from "react-router-dom";
 import { useCloudinaryContext } from "../../context/cloudinaryContext";
 import "../../scss/RemoveBgContainer.scss";
+import publicity from "../../img/publicity.png"
 
 const RemoveBgContainer = () => {
   const [image, setImage] = useState();
@@ -18,6 +19,10 @@ const RemoveBgContainer = () => {
   return (
     <main className="main-bg">
       <h1>Upload your image to remove its background</h1>
+      <div className="img-publi">
+        <img src={publicity} alt="publicity image" />
+      </div>
+      <h2>Let's start!</h2>
       <section className="section-bg">
         {image ? (
           <div {...getRootProps()} className="div-bg-container">

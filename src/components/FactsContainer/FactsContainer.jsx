@@ -5,13 +5,13 @@ const FactsContainer = () => {
   const [fact, setFact] = useState("");
 
   useEffect(() => {
-    fetch("https://api.api-ninjas.com/v1/facts?limit=1", {
-      method: "GET",
-      headers: { "X-Api-Key": process.env.REACT_APP_APIKEY },
-    })
-      .then((resp) => resp.json())
-      .then((data) => setFact(data[0].fact))
-      .catch((error) => console.log(error));
+    // fetch("https://api.api-ninjas.com/v1/facts?limit=1", {
+    //   method: "GET",
+    //   headers: { "X-Api-Key": process.env.REACT_APP_APIKEY },
+    // })
+    //   .then((resp) => resp.json())
+    //   .then((data) => setFact(data[0].fact))
+    //   .catch((error) => console.log(error));
   }, []);
 
   return (
