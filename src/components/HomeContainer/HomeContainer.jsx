@@ -1,5 +1,5 @@
 import "../../scss/HomeContainer.scss";
-import firstExample from "../../img/example-img.png";
+import firstExample from "../../img/publicity.webp";
 import { Link } from "react-router-dom";
 import RecommendedSection from "../RecommendedSection/RecommendedSection";
 
@@ -20,7 +20,7 @@ const HomeContainer = () => {
           </div>
         </div>
         <div className="go-bg">
-          <Link className="btn btn-wide btn-info upload-btn-info" to="/remove-background">Upload Image</Link>
+          <Link className="btn btn-wide btn-info upload-btn-info" to="/effect/uploadImage">Upload Image</Link>
         </div>
       </div>
       <div className="other-features"></div>

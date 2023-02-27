@@ -1,32 +1,52 @@
-.section-recommended{
+@media screen and (min-width: 320px) {
+  .section-recommended {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 55px;
     max-width: 80%;
 
-    .title-recommend{
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #1877f2;
-        font-family: 'Gloock', serif;
-        color: white;
-        height: 50px;
-        font-size: 25px;
+    .title-recommend {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #1877f2;
+      font-family: "Gloock", serif;
+      color: white;
+      height: 50px;
+      font-size: 15px;
     }
 
-    .p-recommend{
-        padding: 20px;
-        font-size: 20px;
-        font-weight: bold;
+    .p-recommend {
+      padding: 20px;
+      font-size: 20px;
+      font-weight: bold;
     }
 
-    .recommed-container{
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px;
+    .recommed-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+
+      div {
+        max-width: 300px;
+      }
     }
+  }
+}
+
+@media screen and (min-width: 760px) {
+  .section-recommended {
+    .title-recommend {
+      font-size: 25px;
+    }
+
+    .recommed-container {
+      div {
+        max-width: 100%;
+      }
+    }
+  }
 }

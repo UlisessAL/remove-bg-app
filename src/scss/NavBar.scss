@@ -1,0 +1,22 @@
+@media screen and (max-width: 729px) {
+  .navbar {
+    .ul {
+      position: absolute;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      list-style: none;
+
+      .ul-nav {
+        color: white;
+        display: none;
+        padding: 15px 20px;
+        text-decoration: none;
+        background-color: red;
+        text-align: center;
+        border-bottom: 1px solid white;
+      }
+    }
+  }
+}

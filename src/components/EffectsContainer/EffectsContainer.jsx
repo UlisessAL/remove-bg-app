@@ -1,26 +1,26 @@
-import { useCallback, useEffect, useId, useState } from "react";
+import { useCallback, useEffect, useId, useReducer } from "react";
 import { useDropzone } from "react-dropzone";
 import { useParams } from "react-router-dom";
 import { useCloudinaryContext } from "../../context/cloudinaryContext";
 import ResultContainer from "./ResultContainer/ResultContainer";
 import "../../scss/EffectsContainer.scss";
 import Effect from "./Effect/Effect";
-import loadingImg from "../../img/loading-img.png";
+import loadingImg from "../../img/loading-img.webp";
 import RecommendedSection from "../RecommendedSection/RecommendedSection";
+import InputEffect from "./InputEffect/InputEffect";
+import {
+  formReducer,
+  INITIAL_STATE,
+} from "../../hooks/useTransformationReducer";
 
 const EffectsContainer = () => {
   const paramsId = useParams();
-  const [image, setImage] = useState("");
-  const [height, setHeight] = useState();
-  const [width, setWidth] = useState();
-  const [coordinateX, setCoordinateX] = useState();
-  const [coordinateY, setCoordinateY] = useState();
-  const [error, setError] = useState(false);
-  const [loader, setLoader] = useState(false);
   const inputH = useId();
   const inputW = useId();
   const inputX = useId();
   const inputY = useId();
+  const inputPixel = useId();
+  const inputBrightness = useId();
 
   const {
     functionName,
@@ -36,38 +36,44 @@ const EffectsContainer = () => {
   useEffect(() => {
     getFunctionByParams(paramsId.effectname);
     getEffectByParams(paramsId.effectname);
+    dispatch({ type: "PARAMSID", payload: { value: paramsId.effectname } });
   }, [paramsId]);
 
+  const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
+
   const onDrop = useCallback((acceptedFiles) => {
-    setImage(acceptedFiles[0]);
+    dispatch({ type: "CHANGE_IMAGE", payload: { value: acceptedFiles[0] } });
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
-  console.log(paramsId.effectname);
-  console.log(effect.funct);
+  const handleChange = (e) => {
+    dispatch({
+      type: "CHANGE_INPUT",
+      payload: { name: e.target.name, value: e.target.value },
+    });
+  };
 
   const onClickFunction = () => {
-    if (
-      width === undefined ||
-      height === undefined ||
-      width === 0 ||
-      height === 0
-    ) {
-      setError(true);
-    } else if (paramsId.effectname == "cropImage") {
-      if (coordinateX === undefined || coordinateY === undefined) {
-        setError(true);
-      } else {
-        functionName.function(image, width, height, coordinateX, coordinateY);
-        setLoader(true);
-        setImage("");
-        setError(false)
-      }
-    } else {
-      functionName.function(image, width, height);
-      setLoader(true);
-      setImage("");
-      setError(false)
+    dispatch({ type: "TRANSFORM" });
+
+    switch (state.paramsId) {
+      case "pixelFace":
+        functionName.function(state.image, state.pixelation);
+        break;
+
+      case "imageBrightness":
+        functionName.function(state.image, state.brightness);
+        break;
+        
+      default:
+        functionName.function(
+          state.image,
+          state.width,
+          state.height,
+          state.coordinateX,
+          state.coordinateY
+        );
+        break;
     }
   };
 
@@ -75,100 +81,82 @@ const EffectsContainer = () => {
     <section className="section-ef">
       <h1>{effect.effect}</h1>
 
-      <div className="div-input">
-        <div className="form-control">
-          <label className="label">
-            {error && (
-              <span className="label-text text-red-600">
-                This field is required
-              </span>
-            )}
-          </label>
-          <label className="input-group" htmlFor={inputH}>
-            <span>Height</span>
-            <input
-              type="number"
-              placeholder="400"
-              className={error ? "border-2 border-rose-500 input input-bordered" : "input input-bordered"}
-              onChange={(e) => setHeight(e.target.value)}
-              id={inputH}
+      {paramsId.effectname !== "pixelFace" &&
+        paramsId.effectname !== "imageBrightness" &&
+        paramsId.effectname !== "uploadImage" &&
+        paramsId.effectname !== "profileImage" && (
+          <div className="div-input">
+            <InputEffect
+              inputId={inputH}
+              name={"Height"}
+              setValue={handleChange}
+              inputName={"height"}
+              hover={state.height}
+              max={effect.max}
             />
-          </label>
-        </div>
-        <div className="form-control">
-          <label className="label">
-            {error && (
-              <span className="label-text text-red-600">
-                This field is required
-              </span>
-            )}
-          </label>
-          <label className="input-group" htmlFor={inputW}>
-            <span> Width</span>
-            <input
-              type="number"
-              placeholder="800"
-              className={error ? "border-2 border-rose-500 input input-bordered" : "input input-bordered"}
-              onChange={(e) => setWidth(e.target.value)}
-              id={inputW}
+            <InputEffect
+              inputId={inputW}
+              name={"Width"}
+              setValue={handleChange}
+              inputName={"width"}
+              hover={state.width}
+              max={effect.max}
             />
-          </label>
-        </div>
-
-        {paramsId.effectname == "cropImage" && (
-          <>
-            {" "}
-            <div className="form-control">
-              <label className="label">
-                {error && (
-                  <span className="label-text text-red-600">
-                    This field is required
-                  </span>
-                )}
-              </label>
-              <label className="input-group" htmlFor={inputX}>
-                <span>Coordinate X</span>
-                <input
-                  type="number"
-                  placeholder="400"
-                  className={error ? "border-2 border-rose-500 input input-bordered" : "input input-bordered"}
-                  onChange={(e) => setCoordinateX(e.target.value)}
-                  id={inputH}
-                />
-              </label>
-            </div>
-            <div className="form-control">
-              <label className="label">
-                {error && (
-                  <span className="label-text text-red-600">
-                    This field is required
-                  </span>
-                )}
-              </label>
-              <label className="input-group" htmlFor={inputY}>
-                <span>Coordinate Y</span>
-                <input
-                  type="number"
-                  placeholder="800"
-                  className={error ? "border-2 border-rose-500 input input-bordered" : "input input-bordered"}
-                  onChange={(e) => setCoordinateY(e.target.value)}
-                  id={inputW}
-                />
-              </label>
-            </div>{" "}
-          </>
+          </div>
         )}
-      </div>
+
+      {paramsId.effectname === "cropImage" && (
+        <div className="div-input">
+          <InputEffect
+            inputId={inputX}
+            name={"Coordinate X"}
+            setValue={handleChange}
+            inputName={"coordinateX"}
+            hover={state.coordinateX}
+            max={effect.max}
+          />
+          <InputEffect
+            inputId={inputY}
+            name={"Coordinate Y"}
+            setValue={handleChange}
+            inputName={"coordinateY"}
+            hover={state.coordinateY}
+            max={effect.max}
+          />
+        </div>
+      )}
+
+      {paramsId.effectname === "pixelFace" && (
+        <InputEffect
+          inputId={inputPixel}
+          name={"Pixelation"}
+          setValue={handleChange}
+          inputName={"pixelation"}
+          hover={state.pixelation}
+          max={effect.max}
+        />
+      )}
+
+      {paramsId.effectname === "imageBrightness" && (
+        <InputEffect
+          inputId={inputBrightness}
+          name={"Brightess"}
+          setValue={handleChange}
+          inputName={"brightness"}
+          hover={state.brightness}
+          max={effect.max}
+        />
+      )}
 
       <Effect
         getRootProps={getRootProps}
         getInputProps={getInputProps}
         isDragActive={isDragActive}
-        image={image}
+        image={state.image}
         onClickFunction={onClickFunction}
       />
 
-      {loader && (
+      {state.loader && (
         <>
           <div className="result-cont">
             <ResultContainer
